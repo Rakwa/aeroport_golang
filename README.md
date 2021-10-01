@@ -13,3 +13,10 @@ Créé par Théo LETOUZÉ, Clément NICOLAS, Loïs GIGAUD, Julien RAQUOIS
 - Une base de données MongoDB
 - Une API REST en ...
 - Un client REST en VueJS (v3)
+
+## Lancement
+
+Pour lancer MongoDB via docker : 
+```shell
+docker-compose up -d
+```
