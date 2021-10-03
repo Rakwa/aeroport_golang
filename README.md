@@ -14,9 +14,14 @@ Créé par Théo LETOUZÉ, Clément NICOLAS, Loïs GIGAUD, Julien RAQUOIS
 - Une API REST en ...
 - Un client REST en VueJS (v3)
 
-## Lancement
+## Installation
 
-Pour lancer MongoDB via docker : 
+MongoDB et Mosquitto fonctionne via une image docker
+
+Pour lancer MongoDB et Mosquitto via docker : 
 ```shell
 docker-compose up -d
 ```
+
+- MongoDB : [localhost:27017](localhost:27017)
+- Mosquitto : [localhost:1884](localhost:1884)
