@@ -33,7 +33,7 @@ var connectionLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, 
 func main() {
 
 	options := mqtt.NewClientOptions()
-	options.AddBroker("tcp://127.0.0.1:1883")
+	options.AddBroker("tcp://127.0.0.1:1884")
 	options.SetClientID("<frfre")
 	client := mqtt.NewClient(options)
 	token := client.Connect()
