@@ -9,6 +9,6 @@ services:
       - "27017:27017"
   mosquitto:
     container_name: mosquitto
-    image: eclipse-mosquitto
+    image: eclipse-mosquitto:1.6.12
     ports:
-      - "1884:1883"
+      - "52883:1883"

@@ -24,4 +24,13 @@ docker-compose up -d
 ```
 
 - MongoDB : [localhost:27017](localhost:27017)
-- Mosquitto : [localhost:1884](localhost:1884)
+- Mosquitto : [localhost:52883](localhost:52883)
+
+## Broker
+
+[Documentation complète sur le broker](broker/README.md)
+
+Pour lancer un capteur depuis le dossier broker (type possible : temperature / wind / pressure) :
+```shell
+go run broker -type=pressure -sensorId=capteur3 -airportId=NTA
+```
