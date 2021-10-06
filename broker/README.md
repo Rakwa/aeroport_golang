@@ -16,5 +16,10 @@ docker-compose up -d
 
 Lancer un capteur (type possible : temperature / wind / pressure) : 
 ```shell
-go run broker -type=pressure -sensorId=capteur3 -airportId=NTA
+go run broker -type=pressure -sensorId=capteur4 -airportId=NTEs
+
+```
+Lancer un subscriber (type possible : csv / db) :
+```shell
+go run broker -mode=subscriber -subName=colorgitano -subType=csv
 ```
