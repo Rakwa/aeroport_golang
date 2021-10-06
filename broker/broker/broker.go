@@ -5,10 +5,12 @@ package broker
 */
 import (
 	"broker/config"
+	"broker/subscribers"
 	"fmt"
-	mqtt "github.com/eclipse/paho.mqtt.golang"
 	"log"
 	"time"
+
+	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
 /*
@@ -51,9 +53,7 @@ func Connect(sensorId string, airportId string) mqtt.Client {
 	if err := token.Error(); err != nil {
 		log.Fatal(err)
 	}
-
-	//todo remove after add mongoDB
-	token = client.Subscribe(airportId, 1, messagePubHandler)
+	token = client.Subscribe(airportId, 1, subscribers.SeedDb)
 
 	return client
 }
