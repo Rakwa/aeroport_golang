@@ -39,7 +39,7 @@ func connectionLostHandler(client mqtt.Client, err error) {
 func Connect(sensorId string, airportId string) mqtt.Client {
 	opts := mqtt.NewClientOptions()
 	opts.AddBroker(fmt.Sprintf("tcp://%s", config.AppConfig.MqttURL))
-	opts.SetClientID("go_mqtt_client")
+	opts.SetClientID(sensorId)
 	opts.OnConnect = connectHandler
 	client := mqtt.NewClient(opts)
 	if token := client.Connect(); token.Wait() && token.Error() != nil {

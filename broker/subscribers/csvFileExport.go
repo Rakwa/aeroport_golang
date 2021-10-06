@@ -22,7 +22,7 @@ func CsvFileExport(client mqtt.Client, msg mqtt.Message) {
 	}
 	measure_date := time.Unix(data.Date, 0)
 
-	name := data.SensorId + "_" + data.AirportId + "_" + strconv.Itoa(measure_date.Year()) + "-" + strconv.Itoa(int(measure_date.Month())) + "-" + strconv.Itoa(measure_date.Day()) + ".csv"
+	name := data.AirportId + "_" + strconv.Itoa(measure_date.Year()) + "-" + strconv.Itoa(int(measure_date.Month())) + "-" + strconv.Itoa(measure_date.Day()) + ".csv"
 	record := [][]string{{"sensor_id", "airport_id", "date", "type", "value"}, {data.SensorId, data.AirportId, measure_date.String(), data.Type, fmt.Sprintf("%f", data.Value)}}
 	if _, err := os.Stat("../csv/" + name); os.IsNotExist(err) {
 		os.Create("../csv/" + name)
