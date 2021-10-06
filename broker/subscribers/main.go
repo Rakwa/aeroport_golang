@@ -1,6 +1,7 @@
-package main
+package subscribers
 
 import (
+	"broker/broker"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -24,20 +25,6 @@ func connectHandler(client mqtt.Client) {
 */
 func connectionLostHandler(client mqtt.Client, err error) {
 	fmt.Printf("Connection Lost: %s\n", err.Error())
-}
-func Connect(airportId string) mqtt.Client {
-	var broker = "broker.emqx.io"
-	var port = 1883
-	opts := mqtt.NewClientOptions()
-	opts.AddBroker(fmt.Sprintf("tcp://%s:%d", broker, port))
-	opts.SetClientID("go_mqtt_client")
-	opts.OnConnect = connectHandler
-	client := mqtt.NewClient(opts)
-	if token := client.Connect(); token.Wait() && token.Error() != nil {
-		panic(token.Error())
-	}
-	sub(client)
-	return client
 }
 
 func StartDb() {
@@ -97,11 +84,11 @@ func sub(client mqtt.Client) {
 	token.Wait()
 	fmt.Printf("Subscribed to topic %s", topic)
 }
-func main() {
+func RunSub() {
 	StartDb()
 	fmt.Println("db init")
-	Connect("NTA")
-
+	var client = broker.Connect("coucou")
+	sub(client)
 	for {
 
 	}
