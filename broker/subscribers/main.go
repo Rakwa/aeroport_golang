@@ -79,11 +79,11 @@ func sub(client mqtt.Client) {
 	fmt.Printf("Subscribed to topic %s", topic)
 }
 
-func RunSub(subscriber_type string, subscriber_name string) {
+func RunSub(subscriberType string, subscriberName string) {
 	topic := "airport"
 	flag.Parse()
-	var client = broker.Connect(subscriber_name, "")
-	if subscriber_type == "db" {
+	var client = broker.Connect(subscriberName, "")
+	if subscriberType == "db" {
 		client.Subscribe(topic, 1, SeedDb)
 	} else {
 		client.Subscribe(topic, 1, CsvFileExport)
