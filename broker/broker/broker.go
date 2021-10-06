@@ -7,9 +7,6 @@ import (
 	"broker/config"
 	"broker/subscribers"
 	"fmt"
-	"log"
-	"time"
-
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
@@ -40,20 +37,15 @@ func connectionLostHandler(client mqtt.Client, err error) {
 	airportId //remove after add mongoDB
 */
 func Connect(sensorId string, airportId string) mqtt.Client {
-	options := mqtt.NewClientOptions()
-	options.AddBroker("tcp://" + config.AppConfig.MqttURL)
-	options.SetClientID(sensorId)
-	client := mqtt.NewClient(options)
-	token := client.Connect()
-	options.OnConnect = connectHandler
-	options.OnConnectionLost = connectionLostHandler
-
-	for !token.WaitTimeout(3 * time.Second) {
+	opts := mqtt.NewClientOptions()
+	opts.AddBroker(fmt.Sprintf("tcp://%s", config.AppConfig.MqttURL))
+	opts.SetClientID("go_mqtt_client")
+	opts.OnConnect = connectHandler
+	client := mqtt.NewClient(opts)
+	if token := client.Connect(); token.Wait() && token.Error() != nil {
+		panic(token.Error())
 	}
-	if err := token.Error(); err != nil {
-		log.Fatal(err)
-	}
-	token = client.Subscribe(airportId, 1, subscribers.SeedDb)
 
+	client.Subscribe(airportId, 1, subscribers.CsvFileExport)
 	return client
 }

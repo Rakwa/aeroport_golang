@@ -21,6 +21,6 @@ func nextValueWindSensor(value float64) float64 {
 */
 func CreateWindSensor(sensorId string, airportId string) {
 	rand.Seed(time.Now().UnixNano())
-	value := Data{sensorId, airportId, time.Now().String(), "wind", float64(rand.Intn(80) + 20)}
+	value := Data{sensorId, airportId, time.Now().Unix(), "wind", float64(rand.Intn(80) + 20)}
 	CreateSensor(value, nextValueWindSensor)
 }

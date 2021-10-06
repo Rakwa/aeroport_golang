@@ -1,4 +1,4 @@
-package main
+package subscribers
 
 import (
 	"context"
@@ -28,7 +28,7 @@ func StartDb() {
 type Data struct {
 	SensorId  string  `json:"sensor_id"`
 	AirportId string  `json:"airport_id"`
-	Date      string  `json:"date"`
+	Date      int64   `json:"date"`
 	Type      string  `json:"type"`
 	Value     float64 `json:"value"`
 }

@@ -14,7 +14,7 @@ import (
 type Data struct {
 	SensorId  string  `json:"sensor_id"`
 	AirportId string  `json:"airport_id"`
-	Date      string  `json:"date"`
+	Date      int64   `json:"date"`
 	Type      string  `json:"type"`
 	Value     float64 `json:"value"`
 }
@@ -30,7 +30,7 @@ func CreateSensor(initData Data, nextValue func(value float64) float64) {
 	value := initData
 
 	for {
-		value.Date = time.Now().String()
+		value.Date = time.Now().Unix()
 		value.Value = nextValue(value.Value)
 		jsonValue, err := json.Marshal(value)
 
