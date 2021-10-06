@@ -18,7 +18,7 @@ func main() {
 	sensorId := flag.String("sensorId", "sensorDefault", "Sensor id")
 	airportId := flag.String("airportId", "NTE", "Airport id")
 	flag.Parse()
-
+	config.StartDb()
 	config.ReadConfig()
 	sensorTypeValue := *sensorType
 	sensorIdValue := *sensorId
