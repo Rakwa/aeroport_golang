@@ -1,6 +1,7 @@
 package subscribers
 
 import (
+	"broker/publishers"
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
@@ -12,7 +13,7 @@ import (
 )
 
 func CsvFileExport(client mqtt.Client, msg mqtt.Message) {
-	data := Data{}
+	data := publishers.Data{}
 	json.Unmarshal([]byte(msg.Payload()), &data)
 	if _, err := os.Stat("../csv/"); os.IsNotExist(err) {
 		err = os.Mkdir("../csv/", 0755)

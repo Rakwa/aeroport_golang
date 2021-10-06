@@ -1,8 +1,11 @@
 package subscribers
 
 import (
+	"broker/broker"
+	"broker/publishers"
 	"context"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"log"
 	"time"
@@ -11,6 +14,20 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
+
+/*
+	On connection
+*/
+func connectHandler(client mqtt.Client) {
+	fmt.Println("Connected")
+}
+
+/*
+	On connection lost
+*/
+func connectionLostHandler(client mqtt.Client, err error) {
+	fmt.Printf("Connection Lost: %s\n", err.Error())
+}
 
 func StartDb() {
 	Client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017"))
@@ -25,17 +42,9 @@ func StartDb() {
 	defer Client.Disconnect(ctx)
 }
 
-type Data struct {
-	SensorId  string  `json:"sensor_id"`
-	AirportId string  `json:"airport_id"`
-	Date      int64   `json:"date"`
-	Type      string  `json:"type"`
-	Value     float64 `json:"value"`
-}
-
 func SeedDb(client mqtt.Client, msg mqtt.Message) {
 	fmt.Println(string(msg.Payload()))
-	data := Data{}
+	data := publishers.Data{}
 	json.Unmarshal([]byte(msg.Payload()), &data)
 	fmt.Printf(string(data.SensorId))
 	// ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
@@ -63,6 +72,25 @@ func SeedDb(client mqtt.Client, msg mqtt.Message) {
 	// var posts []Data
 	// fmt.Println(posts)
 }
-func main() {
+func sub(client mqtt.Client) {
+	topic := "topic/test"
+	token := client.Subscribe(topic, 1, SeedDb)
+	token.Wait()
+	fmt.Printf("Subscribed to topic %s", topic)
+}
 
+func RunSub(subscriber_type string, subscriber_name string) {
+	topic := "airport"
+	flag.Parse()
+	var client = broker.Connect(subscriber_name, "")
+	if subscriber_type == "db" {
+		client.Subscribe(topic, 1, SeedDb)
+	} else {
+		client.Subscribe(topic, 1, CsvFileExport)
+	}
+	fmt.Println("db init")
+	//sub(client)
+	for {
+
+	}
 }

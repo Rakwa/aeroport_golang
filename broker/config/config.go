@@ -4,14 +4,10 @@ package config
 	General configuration with config.yaml
 */
 import (
-	"context"
 	"fmt"
-	"log"
 	"os"
 	"time"
 
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"gopkg.in/yaml.v2"
 )
 
@@ -24,7 +20,6 @@ type Config struct {
 }
 
 var AppConfig *Config
-var Client *mongo.Client
 
 /**
 Transform config.yaml to Config structure
@@ -42,17 +37,4 @@ func ReadConfig() {
 	if err != nil {
 		fmt.Println(err)
 	}
-}
-func StartDb() {
-	Client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017"))
-	if err != nil {
-		log.Fatal(err)
-	}
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
-	err = Client.Connect(ctx)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer Client.Disconnect(ctx)
-
 }
