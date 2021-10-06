@@ -16,15 +16,16 @@ Créé par Théo LETOUZÉ, Clément NICOLAS, Loïs GIGAUD, Julien RAQUOIS
 
 ## Installation
 
-MongoDB et Mosquitto fonctionne via une image docker
+MongoDB, Mosquitto et l'API fonctionne via une image docker
 
-Pour lancer MongoDB et Mosquitto via docker : 
+Pour lancer : 
 ```shell
 docker-compose up -d
 ```
 
 - MongoDB : [localhost:27017](localhost:27017)
 - Mosquitto : [localhost:52883](localhost:52883)
+- API : [localhost:3333](localhost:3333)
 
 ## Broker
 
