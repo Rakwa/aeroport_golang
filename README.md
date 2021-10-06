@@ -1,8 +1,8 @@
-# Projet Aéroport
+# Projet Aéroport 
 
 Système de collecte et de restitution de données météo des aéroports (température, vitesse du vent, pression atmosphérique)
 
-Projet réalisé dans le cadre du module "Infrastructures d'intégration" de l'IMT Atlantique 
+Projet réalisé dans le cadre du module "Infrastructures d'intégration" de l'IMT Atlantique.
 
 Créé par Théo LETOUZÉ, Clément NICOLAS, Loïs GIGAUD, Julien RAQUOIS
 
