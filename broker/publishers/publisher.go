@@ -25,7 +25,6 @@ type Data struct {
 	nextValue : pointer of function to determine next value
 */
 func CreateSensor(initData Data, nextValue func(value float64) float64) {
-	fmt.Println()
 	client := broker.Connect(initData.SensorId + initData.AirportId)
 
 	value := initData
@@ -33,13 +32,12 @@ func CreateSensor(initData Data, nextValue func(value float64) float64) {
 		value.Date = time.Now().String()
 		value.Value = nextValue(value.Value)
 		jsonValue, err := json.Marshal(value)
-		fmt.Println(string(jsonValue))
 
 		if err != nil {
 			fmt.Println("Error:", err)
 		}
 
-		client.Publish(initData.AirportId, 2, false, string(jsonValue))
+		client.Publish("airport", 2, false, string(jsonValue))
 		time.Sleep(time.Second * config.AppConfig.PublishersFrequency)
 	}
 }

@@ -14,7 +14,7 @@ import (
 	On connection
 */
 func connectHandler(client mqtt.Client) {
-	fmt.Println("coucou")
+	fmt.Println("connection start")
 }
 
 /*
