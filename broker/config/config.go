@@ -14,10 +14,9 @@ import (
 const configPath = "config/config.yaml"
 
 type Config struct {
-	DbUrl string `yaml:"DbURL"`
-
 	MqttURL             string        `yaml:"mqttURL"`
 	PublishersFrequency time.Duration `yaml:"publishersFrequency"`
+	DbUrl               string        `yaml:"DbURL"`
 	//add parameter here when new parameter add in config.yaml
 }
 

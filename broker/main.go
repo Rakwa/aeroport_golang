@@ -4,6 +4,7 @@ import (
 	"broker/config"
 	"broker/publishers"
 	"broker/subscribers"
+	"flag"
 )
 
 func main() {

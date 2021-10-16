@@ -12,6 +12,9 @@ import (
 	"time"
 )
 
+/*
+	Export data in CSV file for each airport
+*/
 func CsvFileExport(client mqtt.Client, msg mqtt.Message) {
 	data := publishers.Data{}
 	json.Unmarshal([]byte(msg.Payload()), &data)
