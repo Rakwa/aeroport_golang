@@ -2,6 +2,7 @@ package subscribers
 
 import (
 	"broker/broker"
+	"broker/config"
 	"broker/publishers"
 	"context"
 	"encoding/json"
@@ -14,6 +15,8 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
+
+var db *mongo.Client
 
 /*
 	On connection
@@ -28,55 +31,44 @@ func connectHandler(client mqtt.Client) {
 func connectionLostHandler(client mqtt.Client, err error) {
 	fmt.Printf("Connection Lost: %s\n", err.Error())
 }
+func connect(uri string) (*mongo.Client, context.Context,
+	context.CancelFunc, error) {
 
-func StartDb() {
-	Client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017"))
-	if err != nil {
-		log.Fatal(err)
-	}
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
-	err = Client.Connect(ctx)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer Client.Disconnect(ctx)
+	// ctx will be used to set deadline for process, here
+	// deadline will of 30 seconds.
+	ctx, cancel := context.WithTimeout(context.Background(),
+		30*time.Second)
+
+	// mongo.Connect return mongo.Client method
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(uri))
+	return client, ctx, cancel, err
 }
 
 func SeedDb(client mqtt.Client, msg mqtt.Message) {
+	fmt.Println("MESSAGE RECU")
 	fmt.Println(string(msg.Payload()))
 	data := publishers.Data{}
 	json.Unmarshal([]byte(msg.Payload()), &data)
-	fmt.Printf(string(data.SensorId))
-	// ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
-	// collection := config.Client.Database("go_project").Collection("aeroports")
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	collection := db.Database("go_project").Collection("aeroports")
 
-	// /*
-	//    Insert documents
-	// */
+	/*
+	   Insert documents
+	*/
 
-	// res, insertErr := collection.InsertMany(ctx, docs)
-	// if insertErr != nil {
-	// 	log.Fatal(insertErr)
-	// }
-	// fmt.Println(res)
-	// /*
-	//    Iterate a cursor and print it
-	// */
-	// cur, currErr := collection.Find(ctx, bson.D{})
+	_, insertErr := collection.InsertOne(ctx, data)
+	if insertErr != nil {
+		log.Fatal(insertErr)
+	}
+	/*
+	   Iterate a cursor and print it
+	*/
 
-	// if currErr != nil {
-	// 	panic(currErr)
-	// }
-	// defer cur.Close(ctx)
-
-	// var posts []Data
-	// fmt.Println(posts)
 }
-func sub(client mqtt.Client) {
-	topic := "topic/test"
-	token := client.Subscribe(topic, 1, SeedDb)
+func sub(dbClient *mongo.Client, ctx context.Context, mqttClient mqtt.Client) {
+	token := mqttClient.Subscribe("airport", 1, SeedDb)
 	token.Wait()
-	fmt.Printf("Subscribed to topic %s", topic)
+	fmt.Printf("Subscribed to topic %s", "airport")
 }
 
 func RunSub(subscriberType string, subscriberName string) {
@@ -90,7 +82,5 @@ func RunSub(subscriberType string, subscriberName string) {
 	}
 	fmt.Println("db init")
 	//sub(client)
-	for {
-
-	}
+  for { }
 }
