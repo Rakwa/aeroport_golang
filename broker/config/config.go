@@ -5,14 +5,17 @@ package config
 */
 import (
 	"fmt"
-	"gopkg.in/yaml.v2"
 	"os"
 	"time"
+
+	"gopkg.in/yaml.v2"
 )
 
 const configPath = "config/config.yaml"
 
 type Config struct {
+	DbUrl string `yaml:"DbURL"`
+
 	MqttURL             string        `yaml:"mqttURL"`
 	PublishersFrequency time.Duration `yaml:"publishersFrequency"`
 	//add parameter here when new parameter add in config.yaml

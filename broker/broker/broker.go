@@ -7,22 +7,13 @@ import (
 	"broker/config"
 	"fmt"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
-	"log"
-	"time"
 )
-
-/*
-	On message published
-*/
-func messagePubHandler(client mqtt.Client, msg mqtt.Message) {
-	fmt.Printf("Message %s received on topic %s\n", msg.Payload(), msg.Topic())
-}
 
 /*
 	On connection
 */
 func connectHandler(client mqtt.Client) {
-	fmt.Println("Connected")
+	fmt.Println("connection start")
 }
 
 /*
@@ -37,23 +28,17 @@ func connectionLostHandler(client mqtt.Client, err error) {
 	clientId
 	airportId //remove after add mongoDB
 */
+
 func Connect(sensorId string, airportId string) mqtt.Client {
-	options := mqtt.NewClientOptions()
-	options.AddBroker("tcp://" + config.AppConfig.MqttURL)
-	options.SetClientID(sensorId)
-	client := mqtt.NewClient(options)
-	token := client.Connect()
-	options.OnConnect = connectHandler
-	options.OnConnectionLost = connectionLostHandler
-
-	for !token.WaitTimeout(3 * time.Second) {
+	fmt.Printf(sensorId + airportId)
+	opts := mqtt.NewClientOptions()
+	opts.AddBroker(fmt.Sprintf("tcp://%s", config.AppConfig.MqttURL))
+	opts.SetClientID(sensorId + airportId)
+	opts.OnConnect = connectHandler
+	client := mqtt.NewClient(opts)
+	if token := client.Connect(); token.Wait() && token.Error() != nil {
+		panic(token.Error())
 	}
-	if err := token.Error(); err != nil {
-		log.Fatal(err)
-	}
-
-	//todo remove after add mongoDB
-	token = client.Subscribe(airportId, 1, messagePubHandler)
 
 	return client
 }
