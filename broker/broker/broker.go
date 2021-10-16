@@ -6,7 +6,6 @@ package broker
 import (
 	"broker/config"
 	"fmt"
-
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
@@ -29,10 +28,12 @@ func connectionLostHandler(client mqtt.Client, err error) {
 	clientId
 	airportId //remove after add mongoDB
 */
-func Connect(sensorId string) mqtt.Client {
+
+func Connect(sensorId string, airportId string) mqtt.Client {
+	fmt.Printf(sensorId + airportId)
 	opts := mqtt.NewClientOptions()
 	opts.AddBroker(fmt.Sprintf("tcp://%s", config.AppConfig.MqttURL))
-	opts.SetClientID(sensorId)
+	opts.SetClientID(sensorId + airportId)
 	opts.OnConnect = connectHandler
 	client := mqtt.NewClient(opts)
 	if token := client.Connect(); token.Wait() && token.Error() != nil {

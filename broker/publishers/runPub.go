@@ -1,8 +1,6 @@
 package publishers
 
 import (
-	"broker/config"
-	"flag"
 	"fmt"
 )
 
@@ -12,15 +10,10 @@ Create new sensor
 command : go run broker -type=pressure -sensorId=capteur3 -airportId=NTA
 Types available : pressure, wind, temperature
 */
-func RunPub() {
-	sensorType := flag.String("type", "temperature", "Sensor type")
-	sensorId := flag.String("sensorId", "sensorDefault", "Sensor id")
-	airportId := flag.String("airportId", "NTE", "Airport id")
-	flag.Parse()
-	config.ReadConfig()
-	sensorTypeValue := *sensorType
-	sensorIdValue := *sensorId
-	airportIdValue := *airportId
+func RunPub(sensorType string, sensorId string, airportId string) {
+	sensorTypeValue := sensorType
+	sensorIdValue := sensorId
+	airportIdValue := airportId
 	if sensorTypeValue == "temperature" {
 		fmt.Println("Temperature sensor (" + sensorIdValue + ") initialisation for airport " + airportIdValue)
 		CreateTemperatureSensor(sensorIdValue, airportIdValue)

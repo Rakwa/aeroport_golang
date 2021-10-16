@@ -3,8 +3,10 @@ package subscribers
 import (
 	"broker/broker"
 	"broker/config"
+	"broker/publishers"
 	"context"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"log"
 	"time"
@@ -42,18 +44,10 @@ func connect(uri string) (*mongo.Client, context.Context,
 	return client, ctx, cancel, err
 }
 
-type Data struct {
-	SensorId  string  `json:"sensor_id"`
-	AirportId string  `json:"airport_id"`
-	Date      string  `json:"date"`
-	Type      string  `json:"type"`
-	Value     float64 `json:"value"`
-}
-
 func SeedDb(client mqtt.Client, msg mqtt.Message) {
 	fmt.Println("MESSAGE RECU")
 	fmt.Println(string(msg.Payload()))
-	data := Data{}
+	data := publishers.Data{}
 	json.Unmarshal([]byte(msg.Payload()), &data)
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	collection := db.Database("go_project").Collection("aeroports")
@@ -76,10 +70,17 @@ func sub(dbClient *mongo.Client, ctx context.Context, mqttClient mqtt.Client) {
 	token.Wait()
 	fmt.Printf("Subscribed to topic %s", "airport")
 }
-func RunSub() {
-	dbClient, ctx, _, _ := connect(config.AppConfig.DbUrl)
-	db = dbClient
-	var client = broker.Connect("coucou")
-	sub(dbClient, ctx, client)
 
+func RunSub(subscriberType string, subscriberName string) {
+	topic := "airport"
+	flag.Parse()
+	var client = broker.Connect(subscriberName, "")
+	if subscriberType == "db" {
+		client.Subscribe(topic, 1, SeedDb)
+	} else {
+		client.Subscribe(topic, 1, CsvFileExport)
+	}
+	fmt.Println("db init")
+	//sub(client)
+  for { }
 }

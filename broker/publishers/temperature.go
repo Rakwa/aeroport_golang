@@ -22,6 +22,6 @@ func nextValueTemperatureSensor(value float64) float64 {
 */
 func CreateTemperatureSensor(sensorId string, airportId string) {
 	rand.Seed(time.Now().UnixNano())
-	value := Data{sensorId, airportId, time.Now().String(), "temperature", float64(rand.Intn(30))}
+	value := Data{sensorId, airportId, time.Now().Unix(), "temperature", float64(rand.Intn(30))}
 	CreateSensor(value, nextValueTemperatureSensor)
 }
