@@ -10,6 +10,9 @@ import (
 	"time"
 )
 
+/*
+	Export data in Mongo db
+*/
 func SeedDb(client mqtt.Client, msg mqtt.Message) {
 	fmt.Println("MESSAGE RECU")
 	fmt.Println(string(msg.Payload()))
@@ -22,7 +25,6 @@ func SeedDb(client mqtt.Client, msg mqtt.Message) {
 	   Insert documents
 	*/
 
-	fmt.Println("Test")
 	_, insertErr := collection.InsertOne(ctx, data)
 	if insertErr != nil {
 		log.Fatal(insertErr)
