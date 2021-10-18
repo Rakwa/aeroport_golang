@@ -1,0 +1,38 @@
+/api/airport/measures:
+  get:
+    tags:
+      - Airport
+    security: []
+    description: Liste des mesures d’un certain type entre 2 bornes de temps
+    parameters:
+      - name: airportId
+        in: query
+        required: true
+        schema:
+          type: string
+        description: id de l'aéroport
+        example: "NTA"
+      - name: sensorType
+        in: query
+        required: true
+        schema:
+          type: string
+        description: type du capteur (wind, temperature, pressure)
+        example: "temperature"
+      - name: startDate
+        in: query
+        required: true
+        format: date-time
+        example: "2021-01-30T08:30:00Z"
+        description: date de début
+      - name: startDate
+          in: query
+          required: true
+          format: date-time
+          example: "2021-01-30T08:30:00Z"
+          description: date de début
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Success
