@@ -20,4 +20,4 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/api/airport/measures', 'AirportsController.measures')
+Route.get('/api/airports/:id/measures', 'AirportsController.measures')
