@@ -2,6 +2,7 @@ package subscribers
 
 import (
 	"broker/broker"
+	"broker/config"
 	"context"
 	"flag"
 	"fmt"
@@ -12,7 +13,6 @@ import (
 
 var db *mongo.Client
 
-// todo pas utilisé ?
 func connect(uri string) (*mongo.Client, context.Context,
 	context.CancelFunc, error) {
 
@@ -29,6 +29,8 @@ func connect(uri string) (*mongo.Client, context.Context,
 func RunSub(subscriberType string, subscriberName string) {
 	topic := "airport"
 	flag.Parse()
+	dbClient, _, _, _ := connect(config.AppConfig.DbUrl)
+	db = dbClient
 	var client = broker.Connect(subscriberName, "")
 	if subscriberType == "db" {
 		fmt.Println("db init")
