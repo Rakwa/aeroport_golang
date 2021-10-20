@@ -4,6 +4,9 @@ import colors from 'windicss/colors'
 export default defineConfig({
   theme: {
     extend: {
+      fontFamily: {
+        'oxygen': ['"Oxygen"']
+      },
       screens: {
         sm: '640px',
         md: '768px',
@@ -16,10 +19,7 @@ export default defineConfig({
         primaryBg: '#007997',
         // ...
       },
-      fontFamily: {
-        sans: ['Graphik', 'sans-serif'],
-        serif: ['Merriweather', 'serif'],
-      },
+      
     },
   },
 })
