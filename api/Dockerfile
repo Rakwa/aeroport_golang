@@ -1,17 +1,12 @@
-FROM node:lts-alpine
-
-RUN mkdir -p /app/node_modules
+FROM golang:1.16-alpine
 
 WORKDIR /app
 
-COPY package.json ./
+COPY go.mod ./
+COPY go.sum ./
 
-RUN apk add --no-cache git
-
-COPY . /app
-
-RUN chown -R node:node /app
+RUN go mod download
 
 EXPOSE 3333
 
-ENTRYPOINT ["node","ace","serve","--watch"]
+CMD ["go", "run", "main.go"]

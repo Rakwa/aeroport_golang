@@ -20,7 +20,7 @@ services:
     depends_on:
       - mongodb
     volumes:
-    - ./api:/api
+    - ./api:/app
     ports:
       - "3333:3333"
 
