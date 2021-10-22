@@ -66,7 +66,7 @@ const days = [
   @apply font-oxygen;
 } */
 .infos {
-  background-color: #ffffff0a;
+  background-color: #ffffff19;
   backdrop-filter: blur(17px);
   border-radius: 10px;
   display: flex;

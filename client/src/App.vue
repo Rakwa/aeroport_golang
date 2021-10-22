@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import TodayMeteo from './components/TodayMeteo.vue'
-import ChoseAirport from './components/ChoseAirport.vue'
+import Panel from './components/Panel.vue'
 </script>
 
 <template>
   <div class="mainBackground">
     <TodayMeteo />
-    <ChoseAirport />
+    <Panel />
   </div>
 </template>
 
