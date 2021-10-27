@@ -16,10 +16,23 @@ Créé par Théo LETOUZÉ, Clément NICOLAS, Loïs GIGAUD, Julien RAQUOIS
 
 ## Installation
 
-Pour lancer le projet : 
+Pour lancer le projet avec Docker : 
 ```shell
 docker-compose up -d
 ```
+
+Pour lancer le projet sans Docker :
+
+- Broker : dans le dossier broker
+```shell
+./docker.sh
+```
+
+- API : dans le dossier api
+```shell
+go run main.go
+```
+
 
 - MongoDB : [localhost:27017](localhost:27017)
 - Mosquitto : [localhost:52883](localhost:52883)
@@ -31,7 +44,7 @@ docker-compose up -d
 
 [Documentation complète sur le broker](broker/README.md)
 
-Pour lancer un capteur depuis le dossier broker (type possible : temperature / wind / pressure) :
+Pour lancer un capteur manuellement depuis le dossier broker (type possible : temperature / wind / pressure) :
 ```shell
 go run broker -type=pressure -sensorId=capteur3 -airportId=NTA
 ```
