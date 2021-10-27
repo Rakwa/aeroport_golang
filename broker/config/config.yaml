@@ -1,3 +1,4 @@
-mqttURL: 127.0.0.1:52883
+mqttURL: localhost:52883
 publishersFrequency: 10
 DbURL: mongodb://localhost:27017
+QOS: 2

@@ -1,4 +1,4 @@
-module broker
+module brokerApp
 
 go 1.17
 

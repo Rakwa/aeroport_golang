@@ -1,8 +1,8 @@
 package publishers
 
 import (
-	"broker/broker"
-	"broker/config"
+	"brokerApp/broker"
+	"brokerApp/config"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -37,7 +37,7 @@ func CreateSensor(initData Data, nextValue func(value float64) float64) {
 			fmt.Println("Error:", err)
 		}
 
-		client.Publish("airport", 2, false, string(jsonValue))
+		client.Publish("airport", config.AppConfig.QOS, false, string(jsonValue))
 		time.Sleep(time.Second * config.AppConfig.PublishersFrequency)
 	}
 }

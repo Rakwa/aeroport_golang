@@ -14,11 +14,21 @@ docker-compose up -d
 - MongoDB : [localhost:27017](localhost:27017)
 - Mosquitto : [localhost:52883](localhost:52883)
 
+Lancer l'application avec les capteurs de test :
+```shell
+./docker.sh
+```
 Lancer un capteur (type possible : temperature / wind / pressure) : 
 ```shell
-go run broker -type=pressure -sensorId=capteur4 -airportId=NTEs
+./brokerApp -type=pressure -sensorId=capteur4 -airportId=NTEs
 ```
 Lancer un subscriber (type possible : csv / db) :
 ```shell
-go run broker -mode=subscriber -subName=colorgitano -subType=csv
+./brokerApp -mode=subscriber -subName=colorgitano -subType=csv
+```
+
+### Autres commandes
+Compiler l'application
+```shell
+go build
 ```

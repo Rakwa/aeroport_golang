@@ -1,7 +1,7 @@
 package subscribers
 
 import (
-	"broker/publishers"
+	"brokerApp/publishers"
 	"context"
 	"encoding/json"
 	"fmt"

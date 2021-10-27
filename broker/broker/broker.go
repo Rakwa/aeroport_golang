@@ -4,7 +4,7 @@ package broker
 	File to configure broker
 */
 import (
-	"broker/config"
+	"brokerApp/config"
 	"fmt"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 )

@@ -17,6 +17,7 @@ type Config struct {
 	MqttURL             string        `yaml:"mqttURL"`
 	PublishersFrequency time.Duration `yaml:"publishersFrequency"`
 	DbUrl               string        `yaml:"DbURL"`
+	QOS                 byte          `yaml:"QOS"`
 	//add parameter here when new parameter add in config.yaml
 }
 

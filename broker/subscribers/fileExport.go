@@ -1,7 +1,7 @@
 package subscribers
 
 import (
-	"broker/publishers"
+	"brokerApp/publishers"
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
@@ -24,6 +24,8 @@ func CsvFileExport(client mqtt.Client, msg mqtt.Message) {
 			log.Fatal(err)
 		}
 	}
+	os.Chmod("../csv/", 0777)
+
 	measure_date := time.Unix(data.Date, 0)
 
 	name := data.AirportId + "_" + strconv.Itoa(measure_date.Year()) + "-" + strconv.Itoa(int(measure_date.Month())) + "-" + strconv.Itoa(measure_date.Day()) + ".csv"

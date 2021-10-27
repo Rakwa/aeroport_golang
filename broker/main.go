@@ -1,9 +1,9 @@
 package main
 
 import (
-	"broker/config"
-	"broker/publishers"
-	"broker/subscribers"
+	"brokerApp/config"
+	"brokerApp/publishers"
+	"brokerApp/subscribers"
 	"flag"
 )
 

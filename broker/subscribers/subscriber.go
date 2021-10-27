@@ -1,8 +1,8 @@
 package subscribers
 
 import (
-	"broker/broker"
-	"broker/config"
+	"brokerApp/broker"
+	"brokerApp/config"
 	"context"
 	"flag"
 	"fmt"
@@ -34,9 +34,9 @@ func RunSub(subscriberType string, subscriberName string) {
 	var client = broker.Connect(subscriberName, "")
 	if subscriberType == "db" {
 		fmt.Println("db init")
-		client.Subscribe(topic, 1, SeedDb)
+		client.Subscribe(topic, config.AppConfig.QOS, SeedDb)
 	} else {
-		client.Subscribe(topic, 1, CsvFileExport)
+		client.Subscribe(topic, config.AppConfig.QOS, CsvFileExport)
 	}
 	for {
 	}
