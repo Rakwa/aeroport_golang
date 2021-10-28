@@ -6,6 +6,8 @@ Projet réalisé dans le cadre du module "Infrastructures d'intégration" de l'I
 
 Créé par Théo LETOUZÉ, Clément NICOLAS, Loïs GIGAUD, Julien RAQUOIS
 
+![Application aéroport](docs/front.png)
+
 ## Contenu 📋
 
 - 3 publishers en Go envoyant les données des capteurs
@@ -15,6 +17,8 @@ Créé par Théo LETOUZÉ, Clément NICOLAS, Loïs GIGAUD, Julien RAQUOIS
 - Un client REST en VueJS (v3)
 
 ## Architecture 
+
+![Architecture de l'application](docs/architecture.png)
 
 ## Installation avec Docker (recommandée) 🐳
 
