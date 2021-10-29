@@ -1,8 +1,15 @@
 declare interface Airport {
-  label: String
-  acronym: String
+  label?: string
+  acronym: string
+  data?: AirportData
 }
-
+declare interface AirportData {
+  today: Measure
+  measures: Array<{
+    date: string
+    measure: Measure
+  }>
+}
 declare interface Measure {
   temp: number
   wind: number

@@ -1,27 +1,25 @@
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import { getAirportsTowns } from '../services/airports'
 import createAsyncProcess from '../utils/createAsyncProcess'
 
-export function useAirport() {
-  const airports = ref<[Airport] | null>(null)
+export function useAirports() {
+  const airports = ref<Airport[]>()
   const airportSelected = ref<Airport | null>(null)
 
-  async function fetchProfile(): Promise<void> {
+  async function getAirports(): Promise<Airport[]> {
     const result = await getAirportsTowns()
     airports.value = result
+    airportSelected.value = airports.value[0]
+    return result
   }
 
-  watch(
-    airportSelected,
-    () => console.log('airport changed, data loading ...'),
-    { immediate: true }
-  )
   const { active: isLoading, run: fetchAirports } =
-    createAsyncProcess(fetchProfile)
+    createAsyncProcess(getAirports)
 
   return {
     airports,
     isLoading,
     fetchAirports,
+    airportSelected,
   }
 }

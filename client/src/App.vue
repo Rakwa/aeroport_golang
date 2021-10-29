@@ -1,12 +1,20 @@
 <script setup lang="ts">
 import TodayMeteo from './components/TodayMeteo.vue'
 import Panel from './components/Panel.vue'
+import LoadingPage from './components/LoadingPage.vue'
 </script>
 
 <template>
   <div class="mainBackground">
     <TodayMeteo />
-    <Panel />
+    <Suspense>
+      <template #default>
+        <Panel />
+      </template>
+      <template #fallback>
+        <LoadingPage />
+      </template>
+    </Suspense>
   </div>
 </template>
 

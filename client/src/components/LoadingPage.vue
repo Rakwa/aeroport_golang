@@ -1,0 +1,19 @@
+<template>
+  <div
+    class="
+      loadingPage
+      w-full
+      h-full
+      bg-blue-300
+      absolute
+      top-0
+      left-0
+      flex
+      justify-center
+      items-center
+    "
+  >
+    <p class="text-gray-700 text-lg">Chargement ...</p>
+  </div>
+</template>
+<style></style>

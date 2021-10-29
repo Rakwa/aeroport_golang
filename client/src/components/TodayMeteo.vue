@@ -29,7 +29,12 @@ const displayDate = computed(
 )
 
 const displayHour = computed(
-  () => date.value.getHours() + ':' + date.value.getMinutes()
+  () =>
+    date.value.getHours() +
+    ':' +
+    (date.value.getMinutes() > 10 ? '' : '0') +
+    '' +
+    date.value.getMinutes()
 )
 
 function refreshDate() {
@@ -67,7 +72,8 @@ const days = [
 } */
 .infos {
   background-color: #ffffff19;
-  backdrop-filter: blur(17px);
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
   border-radius: 10px;
   display: flex;
   align-items: center;
