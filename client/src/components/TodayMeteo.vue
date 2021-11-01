@@ -1,6 +1,11 @@
 <template>
   <div class="infos">
-    <p class="temperatureText">{{ temperature + '°' }}</p>
+    <p class="temperatureText">
+      {{ temperature.slice(0, -1)
+      }}<span class="coloredNumber"
+        >{{ temperature[temperature.length - 1] }} </span
+      >°
+    </p>
     <div>
       <p class="airportText">{{ airport }}</p>
       <p class="timeText">{{ displayHour + ' - ' + displayDate }}</p>
@@ -70,6 +75,9 @@ const days = [
 /* * {
   @apply font-oxygen;
 } */
+.coloredNumber {
+  color: #24aad3;
+}
 .infos {
   background-color: #ffffff19;
   -webkit-backdrop-filter: blur(15px);
@@ -82,12 +90,13 @@ const days = [
   padding: 22px 40px 30px 40px;
 }
 .temperatureText {
-  font-weight: 300;
+  font-weight: 200;
   font-size: 100px;
   line-height: 80%;
 }
 .airportText {
   font-size: 45px;
+  font-weight: 300;
 }
 .timeText {
   font-size: 13px;

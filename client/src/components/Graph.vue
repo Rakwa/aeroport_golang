@@ -1,50 +1,68 @@
-<!-- <template>
-  {{ doughnutChartProps }}
-  <DoughnutChart v-bind="doughnutChartProps" />
+<template>
+  <LineChart class="graph" v-bind="lineChartProps" />
 </template>
 
 <script lang="ts">
 import { LineChart, useLineChart } from 'vue-chart-3'
 import { Chart, ChartData, ChartOptions, registerables } from 'chart.js'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 Chart.register(...registerables)
 
 export default {
   components: { LineChart },
+  mounted() {},
   setup() {
-    const dataValues = ref([30, 40, 60, 70, 5])
+    const dataValues = ref([30, 40, 60, 70, 58, 30, 40, 60, 70, 5])
     const toggleLegend = ref(true)
+    const linechart = ref<any>(null)
+    const root = ref(null)
+    const gradientFill = ref<any>(null)
+
+    onMounted(() => {
+      const a: any = document.querySelector('.graph > canvas')
+      if (!a) return
+      gradientFill.value = a.getContext('2d').createLinearGradient(0, 0, 0, 500)
+      gradientFill.value.addColorStop(0, '#3c91ad')
+      gradientFill.value.addColorStop(1, '#3c91ad00')
+    })
 
     const chartData = computed<ChartData<'line'>>(() => ({
-      labels: ['Paris', 'Nîmes', 'Toulon', 'Perpignan', 'Autre'],
+      labels: [
+        'Paris',
+        'Nîmes',
+        'Toulon',
+        'Perpignan',
+        'Autre',
+        'Paris',
+        'Nîmes',
+        'Toulon',
+        'Perpignan',
+        'Autre',
+      ],
       datasets: [
         {
           data: dataValues.value,
-          backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED'],
+          backgroundColor: gradientFill.value,
+          fill: true,
+          tension: 0.5,
+          pointRadius: 0,
         },
       ],
-    }));
+    }))
     const options = computed<ChartOptions<'line'>>(() => ({
-      scales: {
-        myScale: {
-          type: 'logarithmic',
-          position: toggleLegend.value ? 'left' : 'right',
-        },
-      },
-      plugins: {
-        legend: {
-          position: toggleLegend.value ? 'top' : 'bottom',
-        },
-        title: {
-          display: true,
-          text: 'Chart.js Doughnut Chart',
+      responsive: true,
+      maintainAspectRatio: false,
+      bezierCurve: true,
+      elements: {
+        point: {
+          radius: 0,
         },
       },
     }))
 
     const { lineChartProps, lineChartRef } = useLineChart({
-      chartData: chartData,
+      chartData,
     })
 
     function switchLegend() {
@@ -57,7 +75,14 @@ export default {
       options,
       lineChartRef,
       lineChartProps,
+      linechart,
+      root,
     }
   },
 }
-</script> -->
+</script>
+<style>
+.graph {
+  height: 300px;
+}
+</style>

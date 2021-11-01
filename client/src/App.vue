@@ -23,7 +23,7 @@ import LoadingPage from './components/LoadingPage.vue'
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  background: url('./assets/background-storm.jpg') no-repeat center center fixed;
+  background: url('./assets/bg-sunset.jpg') no-repeat center center fixed;
   background-size: cover;
   height: 100%;
   width: 100vw;
@@ -32,5 +32,8 @@ import LoadingPage from './components/LoadingPage.vue'
 }
 * {
   @apply text-white;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 </style>

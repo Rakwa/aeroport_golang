@@ -35,8 +35,6 @@ $darkBlue: #3c91ad;
 
 .rectangle {
   background-color: $darkBlue;
-  margin-left: 55px;
-  margin-right: 55px;
   border-radius: 10px;
   padding-top: 1px;
   padding-left: 10px;
@@ -48,6 +46,7 @@ $darkBlue: #3c91ad;
   p {
     font-size: 22px;
     color: #f9fafa;
+    letter-spacing: 1.5px;
     margin-top: 11px;
     margin-bottom: 14px;
   }
@@ -60,8 +59,8 @@ $darkBlue: #3c91ad;
   .carte {
     background-color: #24aad3;
     border-radius: 20px;
-    width: 110px;
-    height: 110px;
+    width: 108px;
+    height: 108px;
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
@@ -80,7 +79,7 @@ $darkBlue: #3c91ad;
   .temperature::after {
     content: '°C';
     font-weight: normal;
-    font-size: 18px;
+    font-size: 13px;
     position: relative;
     bottom: 27px;
   }
@@ -88,7 +87,7 @@ $darkBlue: #3c91ad;
   .pression::after {
     content: 'Pa';
     font-weight: normal;
-    font-size: 18px;
+    font-size: 13px;
     position: relative;
     bottom: 27px;
   }
@@ -104,7 +103,7 @@ $darkBlue: #3c91ad;
 
 .texteCarte {
   font-weight: 500;
-  font-size: 45px;
+  font-size: 40px;
   color: #f9fafa;
   margin-left: 17px;
 }

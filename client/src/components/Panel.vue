@@ -1,10 +1,10 @@
 <template>
   <div class="panel">
-    <div>
+    <div class="cardsContainer">
       <ChooseAirport @onAirportChange="onAirportChange" />
       <template v-if="!isLoading">
-        <TodayInfos :todayData="airport?.data?.today" />
-        <Graph />
+        <TodayInfos class="mb-5" :todayData="airport?.data?.today" />
+        <BeforeCard />
       </template>
       <p v-else>Chargement des datas</p>
     </div>
@@ -16,6 +16,7 @@ import { useAirports } from '../composable/useAirports'
 import { useAirportData } from '../composable/useAirportData'
 import ChooseAirport from './ChooseAirport.vue'
 import TodayInfos from './TodayInfos.vue'
+import BeforeCard from './BeforeCard.vue'
 import Graph from './Graph.vue'
 
 const { airport, isLoading, fetchData } = useAirportData()
@@ -26,8 +27,14 @@ const onAirportChange = async (id: string) => {
 </script>
 <style>
 .panel {
-  background-color: #484747b2;
-  width: 550px;
+  overflow: scroll;
+  background-color: #4847477c;
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
+  width: 510px;
   height: 100%;
+}
+.cardsContainer {
+  padding: 20px 45px;
 }
 </style>

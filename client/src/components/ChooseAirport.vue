@@ -1,15 +1,9 @@
 <template>
-  <div class="flex">
-    <div
-      v-for="airport in airports"
-      class="bg-blue-400 rounded-lg px-3 py-1 mr-6 cursor-pointer"
-      @click="airportSelected = airport"
-    >
-      {{ airport.label }}
+  <div class="flex mb-5 dropdownContainer">
+    <div class="flex justify-center w-full">
+      <p class="airport">Nantes</p>
     </div>
   </div>
-
-  aéroport séléctionné : {{ airportSelected?.label }}
 </template>
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue'
@@ -31,3 +25,16 @@ export default defineComponent({
   },
 })
 </script>
+<style>
+.dropdownContainer {
+  border-bottom: 1px solid #b3b3b399;
+  padding-bottom: 7px;
+  padding-top: 5px;
+}
+.airport {
+  font-size: 35px;
+  font-weight: 400;
+  color: #f9fafa;
+  letter-spacing: 3px;
+}
+</style>
