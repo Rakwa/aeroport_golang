@@ -5,6 +5,7 @@ import (
 	_ "api/docs"
 	"fmt"
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 	httpSwagger "github.com/swaggo/http-swagger"
 	"log"
 	"net/http"
@@ -24,8 +25,14 @@ func main() {
 	router.HandleFunc("/api/airports/{id}/averages", controller.GetAverages).Methods("GET")
 	router.PathPrefix("").Handler(httpSwagger.WrapHandler)
 
-	fmt.Println("API availabe in localhost:3333")
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:3000"},
+		AllowCredentials: true,
+	})
 
-	log.Fatal(http.ListenAndServe(":3333", router))
+	handler := c.Handler(router)
+
+	fmt.Println("API availabe in localhost:3333")
+	log.Fatal(http.ListenAndServe(":3333", handler))
 
 }
