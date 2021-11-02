@@ -45,7 +45,7 @@ export default defineComponent({
   },
 })
 </script>
-<style>
+<style scoped>
 .selectContainer {
   position: relative;
   display: flex;
