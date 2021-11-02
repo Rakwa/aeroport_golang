@@ -23,11 +23,15 @@ Créé par Théo LETOUZÉ, Clément NICOLAS, Loïs GIGAUD, Julien RAQUOIS
 ## Installation avec Docker (recommandée) 🐳
 
 1. Installer docker sur votre machine 
-2. Lancer le projet avec la commande :
+2. Mettre à jour l'environnement docker (uniquement si récupération d'une nouvelle version du code)
+```shell
+docker-compose build
+```
+3. Lancer le projet avec la commande :
 ```shell
 docker-compose up -d
 ```
-3. Les différents parties du projet sont disponibles aux adresses suivantes : 
+4. Les différents parties du projet sont disponibles aux adresses suivantes : 
   - MongoDB : [localhost:27017](localhost:27017)
   - Mosquitto : [localhost:52883](localhost:52883)
   - API : [localhost:3333](localhost:3333)

@@ -22,6 +22,6 @@ func nextValuePressureSensor(value float64) float64 {
 */
 func CreatePressureSensor(sensorId string, airportId string) {
 	rand.Seed(time.Now().UnixNano())
-	value := Data{sensorId, airportId, time.Now().Unix(), "wind", float64(rand.Intn(30) + 1000)}
+	value := Data{sensorId, airportId, time.Now().Unix(), "pressure", float64(rand.Intn(30) + 1000)}
 	CreateSensor(value, nextValuePressureSensor)
 }
