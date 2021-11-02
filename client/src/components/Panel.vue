@@ -25,7 +25,7 @@ const onAirportChange = async (id: string) => {
 </script>
 <style>
 .panel {
-  overflow: scroll;
+  overflow: auto;
   background-color: #4847477c;
   -webkit-backdrop-filter: blur(7px);
   backdrop-filter: blur(7px);

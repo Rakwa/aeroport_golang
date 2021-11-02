@@ -8,6 +8,7 @@ export function useAirports() {
 
   async function getAirports(): Promise<Airport[]> {
     const result = await getAirportsTowns()
+      console.log(result)
     airports.value = result
     airportSelected.value = airports.value[0]
     return result

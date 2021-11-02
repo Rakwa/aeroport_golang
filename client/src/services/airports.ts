@@ -3,14 +3,13 @@ export async function getAirportsTowns(): Promise<Airport[]> {
 
   const airports = await fetch('http://localhost:3333/api/airports')
     .then((res) => {
-      console.log(res)
       return res.json()
     })
     .catch((err) => console.log(err))
   return airports.map((airport: any) => ({
     acronym: airport._id,
     label: airport.city,
-    name: airport.name,
+    name: decodeURIComponent(escape(airport.name)),
   }))
 }
 function sleep(ms: number) {
@@ -40,7 +39,6 @@ export async function fetchAirportData(
     ...e,
     date: new Date(e.date * 1000),
   }))
-  console.log(averages)
   return {
     today: {
       wind:

@@ -19,7 +19,6 @@ const { measures } = defineProps({
 })
 
 const onTabChange = (e: string) => {
-  console.log(e)
   tabSelected.value = e
 }
 const filteredMeasures = () => {

@@ -60,7 +60,7 @@ export default defineComponent({
   font-size: 100px;
 }
 select {
-  font-size: 35px;
+  font-size: 20px;
   font-weight: 400;
   color: #f9fafa;
   letter-spacing: 1.3px;
