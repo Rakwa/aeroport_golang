@@ -1,0 +1,80 @@
+/api/airports/{airportId}/measures:
+  get:
+    tags:
+      - Airport
+    security: [ ]
+    description: Liste des mesures d’un certain type entre 2 bornes de temps
+    parameters:
+      - name: airportId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id de l'aéroport
+        example: NTA
+      - name: sensorType
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Type de capteur (wind, temperature, pressure)
+        example: temperature
+      - name: startDate
+        in: query
+        required: true
+        format: date-time
+        example: 2021-01-30T08:30:00Z
+        description: Date de début
+      - name: endDate
+        in: query
+        required: true
+        format: date-time
+        example: 2021-01-30T08:30:00Z
+        description: Date de fin
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Liste des mesures
+        content:
+          application/json:
+            example:
+              sensorId: capteur4
+              airportId: NTE
+              date: 2021-01-30T08:30:00Z
+              type: wind
+              value: 1009.7
+
+/api/airports/{airportId}/averages:
+  get:
+    tags:
+      - Airport
+    security: [ ]
+    description: Moyenne des mesures des 3 types pour une journée
+    parameters:
+      - name: airportId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Id de l'aéroport
+        example: NTA
+      - name: Date
+        in: query
+        required: true
+        format: date
+        example: 2021-01-30
+        description: Jour des mesures
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Moyenne des capteurs
+        content:
+          application/json:
+            example:
+              temperature: 27
+              presssure: 78
+              wind: 50
+
+

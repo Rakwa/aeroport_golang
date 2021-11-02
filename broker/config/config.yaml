@@ -1,0 +1,4 @@
+mqttURL: localhost:52883
+publishersFrequency: 10
+DbURL: mongodb://localhost:27017
+QOS: 2

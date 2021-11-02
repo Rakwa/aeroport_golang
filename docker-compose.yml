@@ -1,0 +1,50 @@
+version: "3"
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
+  mosquitto:
+    container_name: mosquitto
+    image: eclipse-mosquitto:1.6.12
+    ports:
+      - "52883:1883"
+  api:
+    container_name: api
+    build:
+      context: api
+      dockerfile: Dockerfile
+      args:
+        - DbURL=mongodb://mongodb:27017
+    depends_on:
+      - mongodb
+    ports:
+      - "3333:3333"
+  client:
+    container_name: client
+    build:
+      context: client
+      dockerfile: Dockerfile
+    volumes:
+        - ./client:/app
+        - /app/node_modules
+    ports:
+      - "3000:3000"
+  broker:
+    container_name: broker
+    build:
+      context: broker
+      dockerfile: Dockerfile
+      args:
+        - MQTTURL=mosquitto:1883
+        - publishersFrequency=10
+        - DbURL=mongodb://mongodb:27017
+        - QOS=2
+    depends_on:
+      - mongodb
+      - mosquitto
+    volumes:
+      - ./csv:/csv

@@ -1,0 +1,141 @@
+basePath: /api
+definitions:
+  helper.ErrorResponse:
+    properties:
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  models.Airport:
+    properties:
+      _id:
+        type: string
+      city:
+        type: string
+      name:
+        type: string
+    type: object
+  models.Average:
+    properties:
+      _id:
+        type: string
+      average:
+        type: string
+    type: object
+  models.Measure:
+    properties:
+      _id:
+        type: string
+      airportid:
+        type: string
+      date:
+        type: integer
+      sensorid:
+        type: string
+      type:
+        type: string
+      value:
+        type: number
+    type: object
+host: localhost:3333
+info:
+  contact: {}
+  description: Get information about airports
+  title: Airport API
+  version: "1.0"
+paths:
+  /airports:
+    get:
+      consumes:
+      - application/json
+      description: Get list of airports in the database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Airport'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+      summary: Get list of airports in the database
+      tags:
+      - Airports
+  /airports/{id}/averages:
+    get:
+      consumes:
+      - application/json
+      description: Get averages of measures (temperature, pressure, wind) in a airport
+      parameters:
+      - description: 'id of the airport (example : NTE)'
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 'date (example : 2021-04-04)'
+        in: query
+        name: date
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Average'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+      summary: Get averages of measures (temperature, pressure, wind) in a airport
+      tags:
+      - Airports
+  /airports/{id}/measures:
+    get:
+      consumes:
+      - application/json
+      description: Get measures (temperature, pressure, wind) in a airport between
+        two date
+      parameters:
+      - description: 'id of the airport (example : NTE)'
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: sensor type (temperature, wind, pressure)
+        in: query
+        name: type
+        type: string
+      - description: 'start date (example : 2021-04-04T22:08:41Z)'
+        in: query
+        name: startDate
+        type: string
+      - description: 'end date (example : 2021-04-04T22:08:41Z)'
+        in: query
+        name: endDate
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Measure'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+      summary: Get measures (temperature, pressure, wind) in a airport between two
+        date
+      tags:
+      - Airports
+swagger: "2.0"
