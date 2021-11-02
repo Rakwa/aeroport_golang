@@ -20,7 +20,6 @@ import BeforeCard from './BeforeCard.vue'
 const { airport, isLoading, fetchData } = useAirportData()
 const onAirportChange = async (id: string) => {
   airport.value = { acronym: id }
-  console.log('coucou')
   await fetchData()
 }
 </script>

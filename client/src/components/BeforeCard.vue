@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <p class="w-full text-center beforeTitle">Précédemment</p>
+    <p class="w-full text-center beforeTitle">3 derniers jours</p>
     <!--<Datepicker class="mb-7" />-->
     <Tabs :tabs="['Température', 'Pression', 'Vent']" @onChange="onTabChange" />
     <Graph class="mt-4" :measures="filteredMeasures()" />

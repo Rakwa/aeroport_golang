@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO : Ici c'est pour toi loïs -->
   <div class="rectangle">
     <div class="today">
       <p>Aujourd'hui</p>

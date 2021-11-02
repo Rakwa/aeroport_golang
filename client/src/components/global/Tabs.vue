@@ -27,7 +27,7 @@ const onClick = (index: number) => {
 </script>
 <style>
 .tabItem {
-  font-size: 9px;
+  font-size: 14px;
   color: white;
   width: 100%;
   box-sizing: content-box;

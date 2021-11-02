@@ -27,9 +27,8 @@ export async function fetchAirportData(
     })
     .catch((err) => console.log(err))
   const startDate = new Date()
-  startDate.setDate(startDate.getDate() - 2)
+  startDate.setDate(startDate.getDate() - 3)
   const endDate = new Date()
-  console.log(startDate.toISOString())
   const measures = await fetch(
     `http://localhost:3333/api/airports/${airportID}/measures?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`
   )

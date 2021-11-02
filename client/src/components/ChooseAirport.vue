@@ -76,8 +76,12 @@ select {
   flex: 1;
   padding: 0 1em;
   color: #fff;
-  background-color: var(--darkgray);
+  background-color: transparent;
   background-image: none;
   cursor: pointer;
+}
+
+select option {
+  color: black;
 }
 </style>

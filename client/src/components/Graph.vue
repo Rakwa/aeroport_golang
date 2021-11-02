@@ -51,7 +51,6 @@ export default defineComponent({
       gradientFill.value.addColorStop(0, '#3c91ad')
       gradientFill.value.addColorStop(1, '#3c91ad00')
     })
-    console.log(chartValues.value)
     const chartData = computed<ChartData<'line'>>(() => ({
       labels: chartLabel.value,
       datasets: [
