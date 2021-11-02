@@ -8,7 +8,12 @@
   </div>
 </template>
 
-<style>
+<style scoped>
+h3 {
+  font-weight: 300;
+  font-size: 22px;
+  color: #f4f4f8;
+}
 * {
   padding: 0px;
   margin: 0px;
@@ -82,7 +87,7 @@
   top: 75%;
   transform: translateY(-75%);
   color: white;
-  font-size: 30px;
+  //font-size: 30px;
   font-family: sans-serif;
 }
 </style>

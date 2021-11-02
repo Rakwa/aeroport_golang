@@ -1,4 +1,6 @@
 export async function getAirportsTowns(): Promise<Airport[]> {
+  await sleep(3000)
+
   const airports = await fetch('http://localhost:3333/api/airports')
     .then((res) => {
       console.log(res)
@@ -11,7 +13,9 @@ export async function getAirportsTowns(): Promise<Airport[]> {
     name: airport.name,
   }))
 }
-
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
 export async function fetchAirportData(
   airportID: string | null
 ): Promise<AirportData> {
