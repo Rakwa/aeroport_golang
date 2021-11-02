@@ -13,7 +13,7 @@ export async function getAirportsTowns(): Promise<Airport[]> {
     name: airport.name,
   }))
 }
-function sleep(ms) {
+function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 export async function fetchAirportData(

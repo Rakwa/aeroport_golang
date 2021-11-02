@@ -87,7 +87,6 @@ h3 {
   top: 75%;
   transform: translateY(-75%);
   color: white;
-  //font-size: 30px;
   font-family: sans-serif;
 }
 </style>
