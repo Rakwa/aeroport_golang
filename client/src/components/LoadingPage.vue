@@ -1,0 +1,92 @@
+<template>
+  <div class="preload">
+    <img class="airplane" src="src/assets/airplane.png" alt="airplane" />
+    <h3>Chargement en cours...</h3>
+    <img src="src/assets/cloud.png" alt="cloud1" class="cloud1" />
+    <img src="src/assets/cloud.png" alt="cloud2" class="cloud2" />
+    <img src="src/assets/cloud.png" alt="cloud3" class="cloud3" />
+  </div>
+</template>
+
+<style scoped>
+h3 {
+  font-weight: 300;
+  font-size: 22px;
+  color: #f4f4f8;
+}
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+.preload {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background: #77b3d4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5 ease;
+}
+
+.cloud1,
+.cloud2,
+.cloud3 {
+  height: 100px;
+  position: absolute;
+  right: 0%;
+  z-index: -1;
+}
+
+.cloud1 {
+  top: 25%;
+  transform: translate(100%, -25%);
+  animation: clouds 3s ease infinite;
+}
+
+.cloud2 {
+  top: 50%;
+  transform: translate(100%, -50%);
+  animation: clouds 3s ease infinite 2s;
+}
+
+.cloud3 {
+  top: 75%;
+  transform: translate(100%, -75%);
+  animation: clouds 3s ease infinite 4s;
+}
+
+.airplane {
+  height: 200px;
+  animation: airplane 1s ease infinite alternate;
+}
+
+@keyframes airplane {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(50px);
+  }
+}
+
+@keyframes clouds {
+  from {
+    right: 0%;
+  }
+  to {
+    right: 130%;
+  }
+}
+
+.preload h3 {
+  position: absolute;
+  top: 75%;
+  transform: translateY(-75%);
+  color: white;
+  font-family: sans-serif;
+}
+</style>

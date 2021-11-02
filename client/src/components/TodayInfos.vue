@@ -1,0 +1,115 @@
+<template>
+  <!-- TODO : Ici c'est pour toi loïs -->
+  <div class="rectangle">
+    <div class="today">
+      <p>Aujourd'hui</p>
+    </div>
+    <div class="content">
+      <div class="carte">
+        <p class="texteCarte temperature">{{ todayData?.temp }}</p>
+        <p class="indicateur">TEMPERATURE</p>
+      </div>
+      <div class="carte">
+        <p class="texteCarte pression">{{ todayData?.pressure }}</p>
+
+        <p class="indicateur">PRESSION</p>
+      </div>
+      <div class="carte">
+        <p class="texteCarte vent">{{ todayData?.wind }}</p>
+        <p class="indicateur">VENT</p>
+      </div>
+    </div>
+  </div>
+</template>
+<script lang="ts">
+import { PropType, defineComponent } from 'vue'
+export default defineComponent({
+  props: {
+    todayData: {
+      type: Object as PropType<Measure>,
+    },
+  },
+})
+</script>
+<style lang="scss" scoped>
+$darkBlue: #3c91ad;
+
+.rectangle {
+  background-color: $darkBlue;
+  border-radius: 10px;
+  padding-top: 1px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.today {
+  text-align: center;
+  p {
+    font-size: 22px;
+    color: #f9fafa;
+    letter-spacing: 1.5px;
+    margin-top: 11px;
+    margin-bottom: 14px;
+  }
+}
+
+.content {
+  display: flex;
+  justify-content: space-around;
+
+  .carte {
+    background-color: #24aad3;
+    border-radius: 20px;
+    width: 108px;
+    height: 108px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .indicateur {
+    font-size: 12px;
+    color: #ffffff;
+    opacity: 0.7;
+    line-height: 90%;
+    padding-bottom: 15px;
+    margin-top: 3px;
+  }
+  .pression {
+    font-size: 30px;
+  }
+  .temperature::after {
+    content: '°C';
+    font-weight: normal;
+    font-size: 13px;
+    position: relative;
+    bottom: 27px;
+  }
+
+  .vent::after {
+    content: 'km/h';
+    font-weight: normal;
+    font-size: 9px;
+    position: relative;
+    bottom: 27px;
+  }
+  .pression::after {
+    content: 'hPa';
+    font-weight: normal;
+    font-size: 11px;
+    position: relative;
+    top: 15px;
+    right: 42px;
+  }
+}
+
+.texteCarte {
+  font-weight: 500;
+  font-size: 40px;
+  color: #f9fafa;
+  margin-left: 17px;
+  line-height: 50px;
+}
+</style>
