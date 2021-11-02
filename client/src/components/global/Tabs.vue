@@ -12,7 +12,7 @@
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue'
-
+const emit = defineEmits(['onChange'])
 const { tabs } = defineProps({
   tabs: {
     type: Array,
@@ -22,6 +22,7 @@ const { tabs } = defineProps({
 const selected = ref<number>(0)
 const onClick = (index: number) => {
   selected.value = index
+  emit('onChange', tabs[index])
 }
 </script>
 <style>

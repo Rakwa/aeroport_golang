@@ -4,7 +4,7 @@
       <ChooseAirport @onAirportChange="onAirportChange" />
       <template v-if="!isLoading">
         <TodayInfos class="mb-5" :todayData="airport?.data?.today" />
-        <BeforeCard />
+        <BeforeCard :measures="airport?.data?.measures" />
       </template>
       <p v-else>Chargement des datas</p>
     </div>
@@ -12,16 +12,15 @@
 </template>
 
 <script setup lang="ts">
-import { useAirports } from '../composable/useAirports'
 import { useAirportData } from '../composable/useAirportData'
 import ChooseAirport from './ChooseAirport.vue'
 import TodayInfos from './TodayInfos.vue'
 import BeforeCard from './BeforeCard.vue'
-import Graph from './Graph.vue'
 
 const { airport, isLoading, fetchData } = useAirportData()
 const onAirportChange = async (id: string) => {
   airport.value = { acronym: id }
+  console.log('coucou')
   await fetchData()
 }
 </script>
@@ -35,6 +34,6 @@ const onAirportChange = async (id: string) => {
   height: 100%;
 }
 .cardsContainer {
-  padding: 20px 45px;
+  padding: 20px 35px;
 }
 </style>

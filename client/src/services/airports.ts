@@ -1,93 +1,56 @@
-const randomMeasure = {
-  wind: Math.floor(Math.random() * (30 - 10 + 1) + 10),
-  temp: Math.floor(Math.random() * (30 - 10 + 1) + 10),
-  pressure: Math.floor(Math.random() * (30 - 10 + 1) + 10),
-}
-const fakedData = [
-  {
-    acronym: 'NTE',
-    today: randomMeasure,
-    measures: [
-      {
-        date: '22/10/2022',
-        measure: randomMeasure,
-      },
-      {
-        date: '22/10/2022',
-        measure: randomMeasure,
-      },
-      {
-        date: '22/10/2022',
-        measure: randomMeasure,
-      },
-      {
-        date: '22/10/2022',
-        measure: randomMeasure,
-      },
-    ],
-  },
-  {
-    acronym: 'RNE',
-    today: randomMeasure,
-    measures: [
-      {
-        date: '22/10/2022',
-        measure: randomMeasure,
-      },
-      {
-        date: '22/10/2022',
-        measure: randomMeasure,
-      },
-      {
-        date: '22/10/2022',
-        measure: randomMeasure,
-      },
-      {
-        date: '22/10/2022',
-        measure: randomMeasure,
-      },
-    ],
-  },
-  {
-    acronym: 'VGN',
-    today: randomMeasure,
-    measures: [
-      {
-        date: '22/10/2022',
-        measure: randomMeasure,
-      },
-      {
-        date: '22/10/2022',
-        measure: randomMeasure,
-      },
-      {
-        date: '22/10/2022',
-        measure: randomMeasure,
-      },
-      {
-        date: '22/10/2022',
-        measure: randomMeasure,
-      },
-    ],
-  },
-]
-
 export async function getAirportsTowns(): Promise<Airport[]> {
-  const sleep = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms))
-  await sleep(2000)
-  return [
-    { label: 'Nantes', acronym: 'NTE' },
-    { label: 'Vingeux', acronym: 'VGN' },
-  ]
+  const airports = await fetch('http://localhost:3333/api/airports')
+    .then((res) => {
+      console.log(res)
+      return res.json()
+    })
+    .catch((err) => console.log(err))
+  return airports.map((airport: any) => ({
+    acronym: airport._id,
+    label: airport.city,
+    name: airport.name,
+  }))
 }
 
 export async function fetchAirportData(
   airportID: string | null
 ): Promise<AirportData> {
-  console.log(airportID)
-  const sleep = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms))
-  await sleep(2000)
-  return fakedData.filter((item) => item.acronym == airportID)[0]
+  const averages = await fetch(
+    `http://localhost:3333/api/airports/${airportID}/averages`
+  )
+    .then((res) => {
+      return res.json()
+    })
+    .catch((err) => console.log(err))
+  const startDate = new Date()
+  startDate.setDate(startDate.getDate() - 2)
+  const endDate = new Date()
+  console.log(startDate.toISOString())
+  const measures = await fetch(
+    `http://localhost:3333/api/airports/${airportID}/measures?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`
+  )
+    .then((res) => {
+      return res.json()
+    })
+    .catch((err) => console.log(err))
+  const m = measures.map((e: any) => ({
+    ...e,
+    date: new Date(e.date * 1000),
+  }))
+  console.log(averages)
+  return {
+    today: {
+      wind:
+        Math.floor(averages.filter((e: any) => e._id == 'wind')[0].average) ||
+        0,
+      temp: Math.floor(
+        averages.filter((e: any) => e._id == 'temperature')[0].average || 0
+      ),
+      pressure:
+        Math.floor(
+          averages.filter((e: any) => e._id == 'pressure')[0]?.average
+        ) || 0,
+    },
+    measures: m,
+  }
 }

@@ -9,7 +9,7 @@
   "dependencies": {
     "chart.js": "^3.6.0",
     "lodash": "^4.17.21",
-    "v-calendar": "^2.3.0",
+    "v-calendar": "^3.0.0-alpha.6",
     "vue": "^3.2.16",
     "vue-chart-3": "^0.5.11",
     "vue-chartjs": "^3.5.1"

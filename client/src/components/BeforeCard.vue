@@ -2,14 +2,37 @@
   <div class="card">
     <p class="w-full text-center beforeTitle">Précédemment</p>
     <!--<Datepicker class="mb-7" />-->
-    <Tabs :tabs="['Température', 'Pression', 'Vent']" />
-    <Graph />
+    <Tabs :tabs="['Température', 'Pression', 'Vent']" @onChange="onTabChange" />
+    <Graph class="mt-4" :measures="filteredMeasures()" />
   </div>
 </template>
 <script lang="ts" setup>
+import { watch, ref } from 'vue'
 import Datepicker from './global/Datepicker.vue'
 import Tabs from './global/Tabs.vue'
 import Graph from './Graph.vue'
+const tabSelected = ref('Température')
+const { measures } = defineProps({
+  measures: {
+    type: Array,
+  },
+})
+
+const onTabChange = (e: string) => {
+  console.log(e)
+  tabSelected.value = e
+}
+const filteredMeasures = () => {
+  if (tabSelected.value == 'Température') {
+    return measures?.filter((e: any) => e.type == 'temperature')
+  } else if (tabSelected.value == 'Pression') {
+    return measures?.filter((e: any) => e.type == 'pressure')
+  } else {
+    return measures?.filter((e: any) => e.type == 'wind')
+  }
+}
+
+watch(tabSelected, (newValue) => {})
 </script>
 <style>
 .card {

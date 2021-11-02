@@ -2,6 +2,7 @@ declare interface Airport {
   label?: string
   acronym: string
   data?: AirportData
+  name?: string
 }
 declare interface AirportData {
   today: Measure

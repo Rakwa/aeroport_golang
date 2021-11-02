@@ -5,16 +5,41 @@
 <script lang="ts">
 import { LineChart, useLineChart } from 'vue-chart-3'
 import { Chart, ChartData, ChartOptions, registerables } from 'chart.js'
-import { computed, onMounted, ref } from 'vue'
+import {
+  computed,
+  onMounted,
+  ref,
+  toRefs,
+  defineComponent,
+  ComputedRef,
+} from 'vue'
 
 Chart.register(...registerables)
 
-export default {
+export default defineComponent({
   components: { LineChart },
   mounted() {},
-  setup() {
-    const dataValues = ref([30, 40, 60, 70, 58, 30, 40, 60, 70, 5])
-    const toggleLegend = ref(true)
+  props: {
+    measures: {
+      type: Array,
+    },
+  },
+  computed: {
+    // need annotation
+    chartValues(): number[] {
+      if (!this.measures) return []
+      return this.measures?.map<number>((v: any) => v.value)
+    },
+  },
+  setup(props) {
+    const { measures } = toRefs(props)
+    const chartLabel: ComputedRef<string[] | undefined> = computed(() =>
+      measures.value?.map((v: any) => '')
+    )
+    const chartValues: any = computed(() =>
+      measures.value?.map<number>((v: any) => v.value)
+    )
+
     const linechart = ref<any>(null)
     const root = ref(null)
     const gradientFill = ref<any>(null)
@@ -26,30 +51,21 @@ export default {
       gradientFill.value.addColorStop(0, '#3c91ad')
       gradientFill.value.addColorStop(1, '#3c91ad00')
     })
-
+    console.log(chartValues.value)
     const chartData = computed<ChartData<'line'>>(() => ({
-      labels: [
-        'Paris',
-        'Nîmes',
-        'Toulon',
-        'Perpignan',
-        'Autre',
-        'Paris',
-        'Nîmes',
-        'Toulon',
-        'Perpignan',
-        'Autre',
-      ],
+      labels: chartLabel.value,
       datasets: [
         {
-          data: dataValues.value,
+          data: chartValues.value,
           backgroundColor: gradientFill.value,
           fill: true,
-          tension: 0.5,
+          tension: 0.3,
           pointRadius: 0,
+          spanGaps: true,
         },
       ],
     }))
+
     const options = computed<ChartOptions<'line'>>(() => ({
       responsive: true,
       maintainAspectRatio: false,
@@ -59,27 +75,32 @@ export default {
           radius: 0,
         },
       },
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+      scales: {
+        y: {
+          ticks: {
+            color: 'white',
+          },
+          beginAtZero: false,
+        },
+      },
     }))
 
     const { lineChartProps, lineChartRef } = useLineChart({
       chartData,
+      options,
     })
 
-    function switchLegend() {
-      toggleLegend.value = !toggleLegend.value
-    }
-
     return {
-      switchLegend,
-      chartData,
-      options,
-      lineChartRef,
       lineChartProps,
-      linechart,
-      root,
+      options,
     }
   },
-}
+})
 </script>
 <style>
 .graph {

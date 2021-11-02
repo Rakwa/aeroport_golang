@@ -6,11 +6,12 @@
     </div>
     <div class="content">
       <div class="carte">
-        <p class="texteCarte temperature">{{ todayData?.pressure }}</p>
+        <p class="texteCarte temperature">{{ todayData?.temp }}</p>
         <p class="indicateur">TEMPERATURE</p>
       </div>
       <div class="carte">
-        <p class="texteCarte pression">{{ todayData?.temp }}</p>
+        <p class="texteCarte pression">{{ todayData?.pressure }}</p>
+
         <p class="indicateur">PRESSION</p>
       </div>
       <div class="carte">
@@ -74,18 +75,13 @@ $darkBlue: #3c91ad;
     opacity: 0.7;
     line-height: 90%;
     padding-bottom: 15px;
+    margin-top: 3px;
   }
-
+  .pression {
+    font-size: 30px;
+  }
   .temperature::after {
     content: '°C';
-    font-weight: normal;
-    font-size: 13px;
-    position: relative;
-    bottom: 27px;
-  }
-
-  .pression::after {
-    content: 'Pa';
     font-weight: normal;
     font-size: 13px;
     position: relative;
@@ -97,7 +93,15 @@ $darkBlue: #3c91ad;
     font-weight: normal;
     font-size: 9px;
     position: relative;
-    bottom: 34px;
+    bottom: 27px;
+  }
+  .pression::after {
+    content: 'hPa';
+    font-weight: normal;
+    font-size: 11px;
+    position: relative;
+    top: 15px;
+    right: 42px;
   }
 }
 
@@ -106,5 +110,6 @@ $darkBlue: #3c91ad;
   font-size: 40px;
   color: #f9fafa;
   margin-left: 17px;
+  line-height: 50px;
 }
 </style>
