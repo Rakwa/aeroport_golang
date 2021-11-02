@@ -9,8 +9,7 @@
 #NTE
 ./brokerApp -type=pressure -sensorId=pressureNTE -airportId=NTE &
 ./brokerApp -type=wind -sensorId=windNTE -airportId=NTE &
-./brokerApp -type=temperature -sensorId=temperatureNTE1 -airportId=NTE &
-./brokerApp -type=temperature -sensorId=temperatureNTE2 -airportId=NTE &
+./brokerApp -type=temperature -sensorId=temperatureNTE -airportId=NTE &
 
 # ORY
 ./brokerApp -type=pressure -sensorId=pressureORY -airportId=ORY &
