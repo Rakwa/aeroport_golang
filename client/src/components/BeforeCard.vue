@@ -34,7 +34,7 @@ const filteredMeasures = () => {
 
 watch(tabSelected, (newValue) => {})
 </script>
-<style>
+<style scoped>
 .card {
   background-color: #ffffff18;
   border-radius: 10px;
